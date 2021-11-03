@@ -1,0 +1,121 @@
+/* user image style */
+.img-container > img {
+    width: 40px;
+  }
+
+  .custom-dropdown {
+    border-radius: 4px;
+    background: transparent;
+    border: 1px solid rgba(130, 178, 249, 1);
+    font-family: 'basefont-regular'
+  }
+
+  .container-background {
+    background-color: #9ecaf1;
+  }
+
+  .card-background {
+    background-color: #252c34 !important;
+  }
+
+  /* font weights */
+
+  .font-medium {
+    font-family: "basefont-medium";
+  }
+  
+  .font-bold {
+    font-family: "basefont-bold";
+  }
+
+  /* text sizes */
+  .text-x-large {
+    font-size: 2rem;
+  }
+  
+  .text-large {
+    font-size: 1.25rem;
+  }
+  
+  .text-medium {
+    font-size: 1.125rem;
+  }
+  
+  .text-small {
+    font-size: 0.875rem;
+  }
+
+  .text-white {
+    color: white;
+  }
+
+  .currency {
+      color: forestgreen;
+  }
+
+  .grid-card {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 1.5rem;
+    height: calc(100%);
+  }
+
+  .chart-card {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 1.5rem 1.5rem .75rem 1.5rem;
+    height: calc(100%);
+  }
+
+  .chart-container > * {
+    height: 100% !important;
+  }
+
+  .full-height.border-left, .full-height.border-right {
+    border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  @media screen and (min-width: 991px) {
+    .full-height {
+      height: 100% !important;
+    }
+  }
+  
+  @media screen and (max-width: 567px) {
+    .full-height.border-left, .full-height.border-right {
+      border-left: none !important;
+      border-right: none !important;
+    }
+
+    .chart-container {
+    height: 180px !important;
+    }
+
+    .large {
+    height: 350px !important;
+    }
+}
+    

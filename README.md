@@ -1,3 +1,23 @@
+# Pre-requisites
+
+We will be making use of the data provided in https://docs.google.com/spreadsheets/d/1sCgmzBIq2K9jUckLuYSWbDq4CuNUfdtuE6a5xI3I5Hw/edit#gid=0
+
+The spreadsheet id has already been configured to config.js file which can be found in the src folder.  You need to add the google sheet API key to access the data during runtime.  
+
+You can create a new project through this link: https://console.cloud.google.com/projectcreate
+
+Once the project is created, you’ll be redirected to Google Developer API dashboard.
+
+(In case you have already created a project in Google Developer API dashboard you can open: https://console.cloud.google.com/projectcreate .  This will take you to the default project on your account.)
+
+Now, we will enable Google Sheets API for our app. For this in the APIs box, click “Go to APIs overview”. Once you click “Enable APIs and Services” you’ll be presented with the API Library and we’ll go ahead and search for “Google Sheets API”.
+
+Once you find it, click “Enable” and after it is processed head over to the sidebar. There head over to “Credentials” and click the “Create credentials” button and select “API Key”. Click the “Restrict Key” and set a name for it.
+
+Save the key generated, as we’ll need it to pull data from our Google Sheet later.
+
+Under “API Restrictions” select the “Google Sheets API” and save. Now, we are good to go for our next step where we’ll connect Google Sheets API and fetch the data.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
