@@ -2,13 +2,13 @@
 
 We will be making use of the data provided in https://docs.google.com/spreadsheets/d/1sCgmzBIq2K9jUckLuYSWbDq4CuNUfdtuE6a5xI3I5Hw/edit#gid=0
 
-The spreadsheet id has already been configured to config.js file which can be found in the src folder.  You need to add the google sheet API key to access the data during runtime.  
+The spreadsheet id has already been configured to config.js file which can be found in the src folder.  You need to add the google sheet API key to access the data during runtime.  For that you myst create a project in the Google Developer API dashboard.
 
 You can create a new project through this link: https://console.cloud.google.com/projectcreate
 
 Once the project is created, you’ll be redirected to Google Developer API dashboard.
 
-(In case you have already created a project in Google Developer API dashboard you can open: https://console.cloud.google.com/projectcreate .  This will take you to the default project on your account.)
+(In case you have already created a project in Google Developer API dashboard in the past you can open: https://console.cloud.google.com/projectcreate .  This will take you to the default project on your account.)
 
 Now, we will enable Google Sheets API for our app. For this in the APIs box, click “Go to APIs overview”. Once you click “Enable APIs and Services” you’ll be presented with the API Library and we’ll go ahead and search for “Google Sheets API”.
 
