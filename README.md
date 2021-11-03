@@ -2,7 +2,7 @@
 
 We will be making use of the data provided in https://docs.google.com/spreadsheets/d/1sCgmzBIq2K9jUckLuYSWbDq4CuNUfdtuE6a5xI3I5Hw/edit#gid=0
 
-The spreadsheet id has already been configured to config.js file which can be found in the src folder.  You need to add the google sheet API key to access the data during runtime.  For that you myst create a project in the Google Developer API dashboard.
+The spreadsheet id has already been configured to config.js file which can be found in the src folder.  You need to add the google sheet API key to access the data during runtime.  For that you must create a project in the Google Developer API dashboard.
 
 You can create a new project through this link: https://console.cloud.google.com/projectcreate
 
