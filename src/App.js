@@ -12,6 +12,7 @@ import "./chart-theme";
 import userImage from "./assets/images/User_Icon.png";
 import styled from "styled-components";
 import Dropdown from "react-dropdown";
+// import chartData from "./chart-data";
 
 
 ReactFC.fcRoot(FusionCharts, Charts, Maps, USARegion);
@@ -19,11 +20,167 @@ const url = `https://sheets.googleapis.com/v4/spreadsheets/${ config.spreadsheet
 const Container = styled.div``;
 const Nav = styled.nav``;
 class App extends Component {
+  
   constructor() {
     super();
     this.state= {
       items: []
     };
+  }
+
+  renderCard (parameter) {
+    const cardValues = {
+      "Total revenue": {
+        revenue: this.state.totalRevenue
+      },
+      "Revenue from Amazon": {
+        revenue: this.state.amRevenue
+      },
+      "Revenue from eBay": {
+        revenue: this.state.ebRevenue
+      },
+      "Revenue from Etsy": {
+        revenue: this.state.etRevenue
+      }
+    }
+    return (
+      <Container className="col-lg-3 col-sm-6 mb-4">
+        <Container className="card card-background grid-card">
+          <Container className="card-heading">
+            <Container className="text-small text-white">{parameter}</Container>
+          </Container>
+          <Container className="card-value pt-4 text-x-large currency">
+            <span className="pr-1 text-large">$</span>
+              {cardValues[parameter].revenue}
+          </Container>
+        </Container>
+      </Container>
+    );
+  }
+
+  renderFC (parameter) {
+    const chartValues = {
+      "Purchase rate": {
+        type: "doughnut2d",
+        dataSource: {
+          chart: {
+            caption: "Purchase rate",
+            theme: "dashboard",
+            defaultCenterLabel: `${this.state.purchaseRate}%`,
+            paletteColors: "#3B70C4, #8c92ac"
+          },
+          data: [
+            {
+              label: "active",
+              value: `${this.state.purchaseRate}`
+            },
+            {
+              label: "inactive",
+              alpha: 5,
+              value: `${100 - this.state.purchaseRate}`
+            }
+          ]
+        }
+      },
+      "Checkout rate": {
+        type: "doughnut2d",
+        dataSource: {
+          chart: {
+            caption: "Checkout rate",
+            theme: "dashboard",
+            defaultCenterLabel: `${this.state.checkoutRate}%`,
+            paletteColors: "#41B6C4, #8c92ac"
+          },
+          data: [
+            {
+              label: "active",
+              value: `${this.state.checkoutRate}`
+            },
+            {
+              label: "inactive",
+              alpha: 5,
+              value: `${100 - this.state.checkoutRate}`
+            }
+          ]
+        }
+      },
+      "Abandoned cart rate": {
+        type: "doughnut2d",
+        dataSource: {
+          chart: {
+            caption: "Abandoned cart rate",
+            theme: "dashboard",
+            defaultCenterLabel: `${
+              this.state.abandonedRate
+            }%`,
+            paletteColors: "#EDF8B1, #8c92ac"
+          },
+          data: [
+            {
+              label: "active",
+              value: `${this.state.abandonedRate}`
+            },
+            {
+              label: "inactive",
+              alpha: 5,
+              value: `${100 - this.state.abandonedRate}`
+            }
+          ]
+        }
+      },
+      "Orders trend by store": {
+        type: "bar2d",
+        dataSource: {
+          chart: {
+            caption: "Orders trend",
+            subCaption: "By store",
+            theme: "dashboard"
+          },
+          data: this.state.ordersTrendStore
+        }
+      },
+      "Orders trend by region": {
+        type: "usaregion",
+        dataSource: {
+            chart: {
+              caption: "Orders trend",
+              subCaption: "By region",
+              theme: "dashboard"
+            },
+            data: this.state.ordersTrendRegion,
+            colorrange: {
+              code: "#F64F4B",
+              minvalue: "0",
+              gradient: "1",
+              color: [
+                {
+                  minValue: "10",
+                  maxvalue: "25",
+                  code: "#EDF8B1"
+                },
+                {
+                  minvalue: "25",
+                  maxvalue: "50",
+                  code: "#18D380"
+                }
+              ]
+            }
+          }
+      }
+    };
+    return (
+      <ReactFC 
+        {...{
+          type: chartValues[parameter].type,
+          width: "100%",
+          height: "100%",
+          dataFormat: "json",
+          containerBackgroundOpacity: "0",
+          dataEmptyMessage: "Loading...",
+          dataSource: chartValues[parameter].dataSource
+        }
+      }/>
+    );
   }
 
   getData = arg => {
@@ -147,8 +304,6 @@ class App extends Component {
       <Container>
     
         <Nav className="navbar navbar-dark bg-primary">
-        {/* <Nav className="navbar navbar-light bg-light"> */}
-        {/* <Nav className="navbar navbar-dark bg-dark"> */}
           <Container className="navbar-brand h1 mb-0 text-large font-medium" style={{ paddingLeft: "1rem" }}>
             Dashboard
           </Container>
@@ -179,56 +334,14 @@ class App extends Component {
         <Container className="container-fluid container-background pr-5 pl-5 pt-5 pb-5">
 
           <Container className="row">
-            <Container className="col-lg-3 col-sm-6 mb-4">
-              <Container className="card card-background grid-card">
-                <Container className="card-heading">
-                  <Container className="text-small text-white">Total revenue</Container>
-                </Container>
-                <Container className="card-value pt-4 text-x-large currency">
-                  <span className="pr-1 text-large">$</span>
-                  {this.state.totalRevenue}
-                </Container>
-              </Container>
-            </Container>
-          
-          
-            <Container className="col-lg-3 col-sm-6 mb-4">
-              <Container className="card card-background grid-card">
-                <Container className="card-heading">
-                  <Container className="text-small text-white">Revenue from Amazon</Container>
-                </Container>
-                <Container className="card-value pt-4 text-x-large currency">
-                  <span className="pr-1 text-large">$</span>
-                  {this.state.amRevenue}
-                </Container>
-              </Container>
-            </Container>
-          
 
+            {this.renderCard("Total revenue")}
           
-            <Container className="col-lg-3 col-sm-6 mb-4">
-              <Container className="card card-background grid-card">
-                <Container className="card-heading">
-                  <Container className="text-small text-white">Revenue from eBay</Container>
-                </Container>
-                <Container className="card-value pt-4 text-x-large currency">
-                  <span className="pr-1 text-large">$</span>
-                  {this.state.ebRevenue}
-                </Container>
-              </Container>
-            </Container>
-        
-            <Container className="col-lg-3 col-sm-6 mb-4">
-              <Container className="card card-background grid-card">
-                <Container className="card-heading">
-                  <Container className="text-small text-white">Revenue from Etsy</Container>
-                </Container>
-                <Container className="card-value pt-4 text-x-large currency">
-                  <span className="pr-1 text-large">$</span>
-                  {this.state.etRevenue}
-                </Container>
-              </Container>
-            </Container>
+            {this.renderCard("Revenue from Amazon")}
+            
+            {this.renderCard("Revenue from eBay")}
+            
+            {this.renderCard("Revenue from Etsy")}  
             
           </Container>
 
@@ -253,100 +366,17 @@ class App extends Component {
                 <Container className="row full-height">
                   <Container className="col-sm-4 full-height">
                     <Container className="chart-container  full-height">
-                      <ReactFC 
-                        {...{
-                          type: "doughnut2d",
-                          width: "100%",
-                          height: "100%",
-                          dataFormat: "json",
-                          containerBackgroundOpacity: "0",
-                          dataSource: {
-                            chart: {
-                              caption: "Purchase rate",
-                              theme: "dashboard",
-                              defaultCenterLabel: `${this.state.purchaseRate}%`,
-                              paletteColors: "#3B70C4, #8c92ac"
-                            },
-                            data: [
-                              {
-                                label: "active",
-                                value: `${this.state.purchaseRate}`
-                              },
-                              {
-                                label: "inactive",
-                                alpha: 5,
-                                value: `${100 - this.state.purchaseRate}`
-                              }
-                            ]
-                          }
-                        }
-                      }/>
+                      {this.renderFC("Purchase rate")}
                     </Container>
                   </Container>
                   <Container className="col-sm-4 full-height border-left border-right">
                     <Container className="chart-container full-height">
-                      <ReactFC
-                        {...{
-                          type: "doughnut2d",
-                          width: "100%",
-                          height: "100%",
-                          dataFormat: "json",
-                          containerBackgroundOpacity: "0",
-                          dataSource: {
-                            chart: {
-                              caption: "Checkout rate",
-                              theme: "dashboard",
-                              defaultCenterLabel: `${this.state.checkoutRate}%`,
-                              paletteColors: "#41B6C4, #8c92ac"
-                            },
-                            data: [
-                              {
-                                label: "active",
-                                value: `${this.state.checkoutRate}`
-                              },
-                              {
-                                label: "inactive",
-                                alpha: 5,
-                                value: `${100 - this.state.checkoutRate}`
-                              }
-                            ]
-                          }
-                        }}
-                      />
+                      {this.renderFC("Checkout rate")}
                     </Container>
                   </Container>
                   <Container className="col-sm-4 full-height">
                     <Container className="chart-container full-height">
-                      <ReactFC
-                        {...{
-                          type: "doughnut2d",
-                          width: "100%",
-                          height: "100%",
-                          dataFormat: "json",
-                          containerBackgroundOpacity: "0",
-                          dataSource: {
-                            chart: {
-                              caption: "Abandoned cart rate",
-                              theme: "dashboard",
-                              defaultCenterLabel: `${
-                                this.state.abandonedRate
-                              }%`,
-                              paletteColors: "#EDF8B1, #8c92ac"
-                            },
-                            data: [
-                              {
-                                label: "active",
-                                value: `${this.state.abandonedRate}`
-                              },
-                              {
-                                label: "inactive",
-                                alpha: 5,
-                                value: `${100 - this.state.abandonedRate}`
-                              }
-                            ]
-                          }
-                        }}
-                      />
+                      {this.renderFC("Abandoned cart rate")}
                     </Container>
                   </Container>
                 </Container>
@@ -360,24 +390,7 @@ class App extends Component {
             <Container className="col-md-6 mb-4">
               <Container className="card chart-card card-background">
                 <Container className="chart-container large full-height">
-                  <ReactFC 
-                  {...{
-                    type: "bar2d",
-                    width: "100%",
-                    height: "100%",
-                    dataFormat: "json",
-                    containerBackgroundOpacity: "0",
-                    dataEmptyMessage: "Loading...",
-                    dataSource: {
-                      chart: {
-                        caption: "Orders trend",
-                        subCaption: "By store",
-                        theme: "dashboard"
-                      },
-                      data: this.state.ordersTrendStore
-                    }
-                  }
-                  }/>
+                  {this.renderFC("Orders trend by store")}
                 </Container>
               </Container>
             </Container>
@@ -385,41 +398,7 @@ class App extends Component {
             <Container className="col-md-6 mb-4">
               <Container className="card chart-card card-background">
                 <Container className="chart-container large full-height">
-                  <ReactFC 
-                  {...{
-                    type: "usaregion",
-                    width: "100%",
-                    height: "100%",
-                    dataFormat: "json",
-                    containerBackgroundOpacity: "0",
-                    dataEmptyMessage: "Loading...",
-                    dataSource: {
-                      chart: {
-                        caption: "Orders trend",
-                        subCaption: "By region",
-                        theme: "dashboard"
-                      },
-                      data: this.state.ordersTrendRegion,
-                      colorrange: {
-                        code: "#F64F4B",
-                        minvalue: "0",
-                        gradient: "1",
-                        color: [
-                          {
-                            minValue: "10",
-                            maxvalue: "25",
-                            code: "#EDF8B1"
-                          },
-                          {
-                            minvalue: "25",
-                            maxvalue: "50",
-                            code: "#18D380"
-                          }
-                        ]
-                      }
-                    }
-                  }
-                  }/>
+                  {this.renderFC("Orders trend by region")}
                 </Container>
               </Container>
             </Container>
